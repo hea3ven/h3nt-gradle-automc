@@ -1,0 +1,7 @@
+.*
+/build
+/bin
+/classes
+/eclipse
+*.iml
+*.launch
