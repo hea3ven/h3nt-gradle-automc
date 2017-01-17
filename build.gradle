@@ -1,0 +1,43 @@
+buildscript {
+	ext.kotlin_version = '1.0.3'
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+	}
+}
+
+
+apply plugin: 'kotlin'
+apply plugin: 'maven'
+
+group = 'com.hea3ven.tools.gradle.automc'
+version = '1.0.0'
+archivesBaseName = 'h3nt-gradle-automc'
+
+dependencies {
+	compile gradleApi()
+	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+	compile "net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT"
+	compile "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+	testCompile 'junit:junit:4.12'
+}
+
+repositories {
+	mavenCentral()
+	maven {
+		name = "forge"
+		url = "http://files.minecraftforge.net/maven"
+	}
+}
+
+uploadArchives {
+	repositories {
+		mavenDeployer {
+			repository(url: project.hasProperty('hea3venMvnUrl') ? project.hea3venMvnUrl : '')
+		}
+	}
+}
