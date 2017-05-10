@@ -1,6 +1,5 @@
 package com.hea3ven.tools.gradle.automc
 
-import java.io.File
 import net.minecraftforge.gradle.user.TaskSourceCopy
 import net.minecraftforge.gradle.user.patcherUser.forge.ForgeExtension
 import org.gradle.api.Plugin
@@ -9,8 +8,9 @@ import org.gradle.api.internal.HasConvention
 import org.gradle.api.plugins.ExtraPropertiesExtension
 import org.gradle.api.plugins.JavaPluginConvention
 import org.gradle.jvm.tasks.Jar
-import org.jetbrains.kotlin.gradle.internal.KotlinSourceSet
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.io.File
 
 class AutoMcPlugin : Plugin<Project> {
 	override fun apply(project: Project) {
@@ -67,7 +67,7 @@ class AutoMcPlugin : Plugin<Project> {
 				val taskName = "source" + set.name.capitalize() + "Kotlin"
 				val task = project.tasks.create(taskName, TaskSourceCopy::class.java)
 				val langSet = (set as HasConvention).convention.plugins["kotlin"] as KotlinSourceSet
-				task.setSource(langSet.getKotlin())
+				task.setSource(langSet.kotlin)
 				val dir = File(project.buildDir, "sources/" + set.name + "/kotlin")
 				task.setOutput(dir)
 				val compileTask = project.tasks.getByName(set.getCompileTaskName("kotlin")) as KotlinCompile
